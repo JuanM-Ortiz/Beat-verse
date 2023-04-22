@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"log"
+	"os"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -10,7 +11,9 @@ import (
 
 var Mongo = ConnectDB()
 
-var clientOptions = options.Client().ApplyURI("mongodb+srv://juanmaortiz3:kFqF1q5HL1sp4lgk@cluster0.athz34b.mongodb.net/beat-verse?retryWrites=true&w=majority")
+var URL = os.Getenv("MONGO_URL")
+
+var clientOptions = options.Client().ApplyURI(URL)
 
 func ConnectDB() *mongo.Client {
 	client, err := mongo.Connect(context.TODO(), clientOptions)
